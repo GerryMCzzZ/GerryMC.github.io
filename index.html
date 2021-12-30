@@ -150,7 +150,7 @@
     
     
     <article
-  id="post-snowflake"
+  id="post-aliyun_sms"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -161,8 +161,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2021/01/15/snowflake/"
-    >Java使用雪花id</a> 
+  <a class="article-title" href="/2021/01/15/aliyun_sms/"
+    >Java使用阿里云短信服务</a> 
 </h2>
  
 
@@ -170,18 +170,20 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2021/01/15/snowflake/" class="article-date">
-  <time datetime="2021-01-15T08:33:55.992Z" itemprop="datePublished">2021-01-15</time>
-</a>    
+      <a href="/2021/01/15/aliyun_sms/" class="article-date">
+  <time datetime="2021-01-14T16:00:00.000Z" itemprop="datePublished">2021-01-15</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </div>
+   
     </div>
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>雪花ID即SnowFlakeID，通常雪花ID是和分布式一起使用的。借鉴一下别人的介绍：<br>SnowFlake是twitter公司内部分布式项目采用的ID生成算法，开源后广受国内大厂的好评。由这种算法生成的ID，我们就叫做SnowFlakeID</p>
-<p>SnowFlakeID的最大的特性就是天然去中心化，通过时间戳、工作机器编号两个变量进行配置后，通过SnowFlake算法会生成唯一的递增ID。在任何机器上，只要保证工作机器编号不同，就可以确保生成的ID唯一，且整体趋势是递增的</p>
-<p>Snowflake的结构如下(每部分用-分开):</p>
-<pre><code class="html">0 - 0000000000 0000000000 0000000000 0000000000 0 - 0000000000 - 000000000000</code></pre> 
-      <a class="article-more-link" href="/2021/01/15/snowflake/"
+  <h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><p>首先要开通阿里云的短信服务，然后在控制台中找到短信服务。进入后就是以下界面。其中我们需要4个东西：accessKeyId、accessKeySecret、短信模板和短信签名。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210107110554104.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjgzNzg5OA==,size_16,color_FFFFFF,t_70" alt="短信服务主界面"> 
+      <a class="article-more-link" href="/2021/01/15/aliyun_sms/"
         >阅读更多...</a
       >
        
@@ -204,7 +206,7 @@
 
     
     <article
-  id="post-aliyun_sms"
+  id="post-java_info_filter"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -215,8 +217,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2021/01/15/aliyun_sms/"
-    >Java使用阿里云短信服务</a> 
+  <a class="article-title" href="/2021/01/12/java_info_filter/"
+    >Java正则表达式过滤手机号、身份证等常用信息</a> 
 </h2>
  
 
@@ -224,16 +226,77 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2021/01/15/aliyun_sms/" class="article-date">
-  <time datetime="2021-01-15T08:28:42.440Z" itemprop="datePublished">2021-01-15</time>
-</a>    
+      <a href="/2021/01/12/java_info_filter/" class="article-date">
+  <time datetime="2021-01-11T16:00:00.000Z" itemprop="datePublished">2021-01-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </div>
+   
     </div>
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><p>首先要开通阿里云的短信服务，然后在控制台中找到短信服务。进入后就是以下界面。其中我们需要4个东西：accessKeyId、accessKeySecret、短信模板和短信签名。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210107110554104.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjgzNzg5OA==,size_16,color_FFFFFF,t_70" alt="短信服务主界面"> 
-      <a class="article-more-link" href="/2021/01/15/aliyun_sms/"
+  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在我们日常开发中，常常会用到一些固定信息，如：手机号、身份证等。也会对账户名，密码等信息有一定限制。那么就需要过滤掉一些基本的垃圾信息，提示用户输入错误，需要规范的信息。</p> 
+      <a class="article-more-link" href="/2021/01/12/java_info_filter/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-snowflake"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/05/snowflake/"
+    >Java使用雪花id</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/05/snowflake/" class="article-date">
+  <time datetime="2021-01-04T16:00:00.000Z" itemprop="datePublished">2021-01-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>雪花ID即SnowFlakeID，通常雪花ID是和分布式一起使用的。借鉴一下别人的介绍：<br>SnowFlake是twitter公司内部分布式项目采用的ID生成算法，开源后广受国内大厂的好评。由这种算法生成的ID，我们就叫做SnowFlakeID</p>
+<p>SnowFlakeID的最大的特性就是天然去中心化，通过时间戳、工作机器编号两个变量进行配置后，通过SnowFlake算法会生成唯一的递增ID。在任何机器上，只要保证工作机器编号不同，就可以确保生成的ID唯一，且整体趋势是递增的</p>
+<p>Snowflake的结构如下(每部分用-分开):</p>
+<pre><code class="html">0 - 0000000000 0000000000 0000000000 0000000000 0 - 0000000000 - 000000000000</code></pre> 
+      <a class="article-more-link" href="/2021/01/05/snowflake/"
         >阅读更多...</a
       >
        
@@ -327,6 +390,10 @@
     
     <li class="nav-item">
       <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
     </li>
     
     <li class="nav-item">

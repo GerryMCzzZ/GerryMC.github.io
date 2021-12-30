@@ -96,10 +96,129 @@ public class AlySmsUtils &#123;
         SmsCode();
     &#125;</code></pre>
 ]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Java正则表达式过滤手机号、身份证等常用信息</title>
+    <url>/2021/01/12/java_info_filter/</url>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在我们日常开发中，常常会用到一些固定信息，如：手机号、身份证等。也会对账户名，密码等信息有一定限制。那么就需要过滤掉一些基本的垃圾信息，提示用户输入错误，需要规范的信息。</p>
+<a id="more"></a>
+<h2 id="代码工具类"><a href="#代码工具类" class="headerlink" title="代码工具类"></a>代码工具类</h2><pre><code class="java">public class InfoFilterUtil &#123;
+    //匹配用户名
+    public static boolean checkUserName(String username) &#123;
+        String regExp = &quot;^[a-zA-Z0-9]&#123;4,16&#125;$&quot;;
+        if(username.matches(regExp)) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+
+    //匹配密码
+    public static boolean checkPassword(String password) &#123;
+        String regExp = &quot;^[a-zA-Z0-9@/#.+=]&#123;4,16&#125;$&quot;;
+        if(password.matches(regExp)) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+
+    //匹配姓名
+    public static boolean checkName(String name) &#123;
+        String regExp = &quot;^[\\u4E00-\\u9FA5]&#123;2,6&#125;$&quot;;
+        if(name.matches(regExp)) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+
+    //匹配手机号
+    public static boolean checkPhone(String phone) &#123;
+        String regExp = &quot;^[1]([3-9])[0-9]&#123;9&#125;$&quot;;
+        if(phone.matches(regExp)) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+
+    //匹配手机验证码
+    public static boolean checkCaptcha(String code) &#123;
+        String regExp = &quot;^[0-9]&#123;6&#125;$&quot;;
+        if(code.matches(regExp)) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+
+    //匹配身份证
+    public static boolean checkIdCard(String s) &#123;
+        String regExp = &quot;^[1-9]\\d&#123;5&#125;(18|19|20|(3\\d))\\d&#123;2&#125;((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\\d&#123;3&#125;[0-9Xx]$&quot;;
+        if(s.matches(regExp)) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+
+    //匹配0-200字符
+    public static boolean check0_200Char(String s) &#123;
+        String regExp = &quot;^[\\u4E00-\\u9FA5A-Za-z0-9_]&#123;0,200&#125;$&quot;;
+        if(s.matches(regExp)) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+
+    //匹配1-200字符加()
+    public static boolean check1_200Char1(String s) &#123;
+        String regExp = &quot;^[\\u4E00-\\u9FA5A-Za-z0-9_()（）]&#123;1,200&#125;$&quot;;
+        if(s.matches(regExp)) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+
+
+    //匹配0-400字符
+    public static boolean check400Char(String s) &#123;
+        String regExp = &quot;^([\\s\\S]*)&#123;0,400&#125;$&quot;;
+        if(s.matches(regExp)) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre><code class="java">public class InfoFilterUtilTest &#123;
+
+    public static void main(String[] args)&#123;
+        //过滤手机号
+        System.out.println(&quot;12345678910是不是手机号:&quot;+InfoFilterUtil.checkPhone(&quot;12345678910&quot;));
+    &#125;
+&#125;
+</code></pre>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><pre><code class="java">12345678910是不是手机号:false</code></pre>
+<p>这是我在Github上开源项目中的其中一个工具类，目前过滤的信息并不多，有需要的可以联系我补充。也欢迎有兴趣的伙伴可以加入这个开源项目中来，贡献自己的力量。下面是项目的地址：</p>
+<blockquote>
+<p><a href="https://github.com/GerryMCzzZ/SpringBoot-Utils">https://github.com/GerryMCzzZ/SpringBoot-Utils</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
   </entry>
   <entry>
     <title>Java使用雪花id</title>
-    <url>/2021/01/15/snowflake/</url>
+    <url>/2021/01/05/snowflake/</url>
     <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>雪花ID即SnowFlakeID，通常雪花ID是和分布式一起使用的。借鉴一下别人的介绍：<br>SnowFlake是twitter公司内部分布式项目采用的ID生成算法，开源后广受国内大厂的好评。由这种算法生成的ID，我们就叫做SnowFlakeID</p>
 <p>SnowFlakeID的最大的特性就是天然去中心化，通过时间戳、工作机器编号两个变量进行配置后，通过SnowFlake算法会生成唯一的递增ID。在任何机器上，只要保证工作机器编号不同，就可以确保生成的ID唯一，且整体趋势是递增的</p>
 <p>Snowflake的结构如下(每部分用-分开):</p>
@@ -271,5 +390,8 @@ public class SnowFlakeUtil &#123;
     System.out.println(snowFlake.nextId());
  &#125;</code></pre>
 ]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
   </entry>
 </search>
