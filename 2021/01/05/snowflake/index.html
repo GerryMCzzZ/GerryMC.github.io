@@ -14,7 +14,7 @@
       <title>Java使用雪花id |  GerryMC</title>
   <meta name="generator" content="hexo-theme-ayer">
       
-      <link rel="shortcut icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/images/header.jpg" />
        
 <link rel="stylesheet" href="/dist/main.css">
 
@@ -131,7 +131,7 @@
 <p>简介来源<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zer0Black/p/12323541.html">https://www.cnblogs.com/zer0Black/p/12323541.html</a></p>
 </blockquote>
 <h1 id="如何优化"><a href="#如何优化" class="headerlink" title="如何优化"></a>如何优化</h1><p>机器ID的配置需要自己按照自己的规范去执行，这需要人主观去解决。这里重点聊聊怎么解决时钟回拨的问题。引用的文章说的方案我就不说了，可以通过介绍链接地址去了解。我的工具类使用的方案是用变量记录上一个id的时间戳，如果当前的时间戳小于上一个的，那么就阻塞1s或者直接抛出异常，重新获取id。</p>
-<h1 id="干代码"><a href="#干代码" class="headerlink" title="干代码"></a>干代码</h1><p>复制工具类代码，或者点击链接<a target="_blank" rel="noopener" href="https://github.com/Pgr-MrChen/SpringBoot-Utils/blob/main/SpringBootUtils/src/main/java/org/gerrymc/springbootutils/utils/SnowFlakeUtil.java">SnowFlakeUtil.java</a>到我GitHub的开源项目中下载，里面还有其他开发中常用的工具类：</p>
+<h1 id="干代码"><a href="#干代码" class="headerlink" title="干代码"></a>干代码</h1><p>复制工具类代码，或者点击链接<a target="_blank" rel="noopener" href="https://github.com/GerryMCzzZ/Java-Utils/blob/main/JavaUtils/src/main/java/org/gerrymc/javautils/utils/SnowFlakeUtil.java">SnowFlakeUtil.java</a>到我GitHub的开源项目中下载，里面还有其他开发中常用的工具类：</p>
 <pre><code class="java">package org.gerrymc.springbootutils.utils;
 
 /**
@@ -425,7 +425,7 @@ public class SnowFlakeUtil &#123;
     <ul>
       <li>
         Copyrights &copy;
-        2015-2021
+        2020-2022
         <i class="ri-heart-fill heart_icon"></i> GerryMC
       </li>
     </ul>

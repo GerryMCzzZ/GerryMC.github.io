@@ -14,7 +14,7 @@
       <title> GerryMC</title>
   <meta name="generator" content="hexo-theme-ayer">
       
-      <link rel="shortcut icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/images/header.jpg" />
        
 <link rel="stylesheet" href="/dist/main.css">
 
@@ -237,7 +237,16 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在我们日常开发中，常常会用到一些固定信息，如：手机号、身份证等。也会对账户名，密码等信息有一定限制。那么就需要过滤掉一些基本的垃圾信息，提示用户输入错误，需要规范的信息。</p> 
+  <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在我们日常开发中，常常会用到一些固定信息，如：手机号、身份证等。也会对账户名，密码等信息作特定的限制。那么就需要过滤掉一些垃圾信息，保证数据的准确性。这里我们通过正则表达式对字符串进行匹配过滤。</p>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式可以用字符串来描述规则，并用来匹配字符串。比如：”\\d”表示可以匹配一位0~9的数字，其中第一个”&quot;是转义字符。如果想匹配多位字符需要在表达式后面加”{最小位数，最大位数}”（{2}表示只能匹配2位数字）：”\\d{4,10}”表示可匹配4-10位数字。在String中有一个方法matches就是用来匹配字符串或规则的， 实际运用如下：</p>
+<pre><code class="java">public class Test &#123;
+    public static void main(String[] args)&#123;
+       System.out.println(&quot;0&quot;.matches(&quot;\\d&quot;));  //结果：true
+        System.out.println(&quot;a&quot;.matches(&quot;\\d&quot;));  //结果：false
+        System.out.println(&quot;1234&quot;.matches(&quot;\\d&quot;));  //结果：false
+        System.out.println(&quot;1234&quot;.matches(&quot;\\d&#123;4,10&#125;&quot;));  //结果：true
+    &#125;
+&#125;</code></pre> 
       <a class="article-more-link" href="/2021/01/12/java_info_filter/"
         >阅读更多...</a
       >
@@ -330,7 +339,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2015-2021
+        2020-2022
         <i class="ri-heart-fill heart_icon"></i> GerryMC
       </li>
     </ul>

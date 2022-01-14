@@ -14,7 +14,7 @@
       <title>Java正则表达式过滤手机号、身份证等常用信息 |  GerryMC</title>
   <meta name="generator" content="hexo-theme-ayer">
       
-      <link rel="shortcut icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/images/header.jpg" />
        
 <link rel="stylesheet" href="/dist/main.css">
 
@@ -85,7 +85,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">586</span>
+            <span class="post-count">970</span>
         </span>
     </span>
 
@@ -94,7 +94,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -109,100 +109,121 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在我们日常开发中，常常会用到一些固定信息，如：手机号、身份证等。也会对账户名，密码等信息有一定限制。那么就需要过滤掉一些基本的垃圾信息，提示用户输入错误，需要规范的信息。</p>
+  <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在我们日常开发中，常常会用到一些固定信息，如：手机号、身份证等。也会对账户名，密码等信息作特定的限制。那么就需要过滤掉一些垃圾信息，保证数据的准确性。这里我们通过正则表达式对字符串进行匹配过滤。</p>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式可以用字符串来描述规则，并用来匹配字符串。比如：”\\d”表示可以匹配一位0~9的数字，其中第一个”&quot;是转义字符。如果想匹配多位字符需要在表达式后面加”{最小位数，最大位数}”（{2}表示只能匹配2位数字）：”\\d{4,10}”表示可匹配4-10位数字。在String中有一个方法matches就是用来匹配字符串或规则的， 实际运用如下：</p>
+<pre><code class="java">public class Test &#123;
+    public static void main(String[] args)&#123;
+       System.out.println(&quot;0&quot;.matches(&quot;\\d&quot;));  //结果：true
+        System.out.println(&quot;a&quot;.matches(&quot;\\d&quot;));  //结果：false
+        System.out.println(&quot;1234&quot;.matches(&quot;\\d&quot;));  //结果：false
+        System.out.println(&quot;1234&quot;.matches(&quot;\\d&#123;4,10&#125;&quot;));  //结果：true
+    &#125;
+&#125;</code></pre>
 <a id="more"></a>
-<h2 id="代码工具类"><a href="#代码工具类" class="headerlink" title="代码工具类"></a>代码工具类</h2><pre><code class="java">public class InfoFilterUtil &#123;
+<p>一般来说，匹配规则习惯用[ ]括起来，匹配个数用{ }括起来，’^’匹配输入字符串的开始位置，’$’匹配输入字符串的结束位置，一般来说加上这个2个字符只是一个规范，加与不加效果都一样。常用的表达式如下：</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>匹配内容</th>
+<th>表达式</th>
+<th>匹配内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[. ]</td>
+<td>所有字符</td>
+<td>[x|y]</td>
+<td>x或y</td>
+</tr>
+<tr>
+<td>[\\d]</td>
+<td>0-9的数字</td>
+<td>[xyz]</td>
+<td>x或y或z字符集合</td>
+</tr>
+<tr>
+<td>[0-9]</td>
+<td>0-9的数字</td>
+<td>[^a-z]</td>
+<td>除a-z之外的字符</td>
+</tr>
+<tr>
+<td>[a-z]</td>
+<td>a-z的字符</td>
+<td>*</td>
+<td>匹配前面的子表达式零次或多次</td>
+</tr>
+<tr>
+<td>[A-Z]</td>
+<td>A-Z的字符</td>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次</td>
+</tr>
+<tr>
+<td>[\\u4E00-\\u9FA5]</td>
+<td>中文字符</td>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次</td>
+</tr>
+</tbody></table>
+<h2 id="代码工具类"><a href="#代码工具类" class="headerlink" title="代码工具类"></a>代码工具类</h2><p>在开发中我们常常会用到一些信息，我整理了一个过滤工具类。其中固定信息可以借鉴如电话、身份证。其余信息可以根据自己需求修改。</p>
+<pre><code class="java">public class InfoFilterUtil &#123;
     //匹配用户名
     public static boolean checkUserName(String username) &#123;
-        String regExp = &quot;^[a-zA-Z0-9]&#123;4,16&#125;$&quot;;
-        if(username.matches(regExp)) &#123;
-            return true;
-        &#125;else &#123;
-            return false;
-        &#125;
+        String regExp = &quot;^[a-zA-Z0-9]&#123;4,16&#125;3$&quot;;
+        return username.matches(regExp);
+
     &#125;
 
     //匹配密码
     public static boolean checkPassword(String password) &#123;
         String regExp = &quot;^[a-zA-Z0-9@/#.+=]&#123;4,16&#125;$&quot;;
-        if(password.matches(regExp)) &#123;
-            return true;
-        &#125;else &#123;
-            return false;
-        &#125;
+        return password.matches(regExp);
     &#125;
 
     //匹配姓名
     public static boolean checkName(String name) &#123;
         String regExp = &quot;^[\\u4E00-\\u9FA5]&#123;2,6&#125;$&quot;;
-        if(name.matches(regExp)) &#123;
-            return true;
-        &#125;else &#123;
-            return false;
-        &#125;
+        return name.matches(regExp);
     &#125;
 
     //匹配手机号
     public static boolean checkPhone(String phone) &#123;
-        String regExp = &quot;^[1]([3-9])[0-9]&#123;9&#125;$&quot;;
-        if(phone.matches(regExp)) &#123;
-            return true;
-        &#125;else &#123;
-            return false;
-        &#125;
+        String regExp = &quot;^[1]([3-9])\\d&#123;9&#125;$&quot;;
+        return phone.matches(regExp);
     &#125;
 
     //匹配手机验证码
     public static boolean checkCaptcha(String code) &#123;
         String regExp = &quot;^[0-9]&#123;6&#125;$&quot;;
-        if(code.matches(regExp)) &#123;
-            return true;
-        &#125;else &#123;
-            return false;
-        &#125;
+        return code.matches(regExp);
     &#125;
 
     //匹配身份证
     public static boolean checkIdCard(String s) &#123;
         String regExp = &quot;^[1-9]\\d&#123;5&#125;(18|19|20|(3\\d))\\d&#123;2&#125;((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\\d&#123;3&#125;[0-9Xx]$&quot;;
-        if(s.matches(regExp)) &#123;
-            return true;
-        &#125;else &#123;
-            return false;
-        &#125;
+        return s.matches(regExp);
     &#125;
 
     //匹配0-200字符
     public static boolean check0_200Char(String s) &#123;
         String regExp = &quot;^[\\u4E00-\\u9FA5A-Za-z0-9_]&#123;0,200&#125;$&quot;;
-        if(s.matches(regExp)) &#123;
-            return true;
-        &#125;else &#123;
-            return false;
-        &#125;
+        return s.matches(regExp);
     &#125;
 
     //匹配1-200字符加()
     public static boolean check1_200Char1(String s) &#123;
         String regExp = &quot;^[\\u4E00-\\u9FA5A-Za-z0-9_()（）]&#123;1,200&#125;$&quot;;
-        if(s.matches(regExp)) &#123;
-            return true;
-        &#125;else &#123;
-            return false;
-        &#125;
+        return s.matches(regExp);
     &#125;
 
 
     //匹配0-400字符
     public static boolean check400Char(String s) &#123;
         String regExp = &quot;^([\\s\\S]*)&#123;0,400&#125;$&quot;;
-        if(s.matches(regExp)) &#123;
-            return true;
-        &#125;else &#123;
-            return false;
-        &#125;
+        return  s.matches(regExp);
     &#125;
-&#125;
 </code></pre>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre><code class="java">public class InfoFilterUtilTest &#123;
 
@@ -215,7 +236,7 @@
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><pre><code class="java">12345678910是不是手机号:false</code></pre>
 <p>这是我在Github上开源项目中的其中一个工具类，目前过滤的信息并不多，有需要的可以联系我补充。也欢迎有兴趣的伙伴可以加入这个开源项目中来，贡献自己的力量。下面是项目的地址：</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/GerryMCzzZ/SpringBoot-Utils">https://github.com/GerryMCzzZ/SpringBoot-Utils</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/GerryMCzzZ/Java-Utils">https://github.com/GerryMCzzZ/Java-Utils</a></p>
 </blockquote>
  
       <!-- reward -->
@@ -368,7 +389,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2015-2021
+        2020-2022
         <i class="ri-heart-fill heart_icon"></i> GerryMC
       </li>
     </ul>
